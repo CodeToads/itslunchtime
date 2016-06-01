@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-export const INCREMENT = 'INCREMENT';
+export const TEST = 'TEST';
 
-export function increment() {
+export function test() {
   return {
-    type: INCREMENT
+    type: TEST
   };
 }

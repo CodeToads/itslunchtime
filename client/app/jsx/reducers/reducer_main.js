@@ -1,11 +1,11 @@
-import { INCREMENT } from '../actions/actions';
+import { TEST } from '../actions/actions';
 
-const INITIAL_STATE = { count: 0 };
+const INITIAL_STATE = { phrase: "Click the button!" };
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
-  case INCREMENT:
-    return { count: state.count + 1 };
+  case TEST:
+    return { phrase: "You clicked the button!" };
   default:
     return state;
   }

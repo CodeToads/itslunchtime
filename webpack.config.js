@@ -8,7 +8,7 @@ module.exports = {
   context: __dirname,
 
   entry: [
-    './client/app/jsx/boot.jsx'
+    './client/app/jsx/main.jsx'
   ],
 
   output: {

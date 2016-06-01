@@ -16,10 +16,10 @@ This App was made to help you and your friends decide what to eat for lunch!
   'I never think about what to eat for lunch again!'
 
 ## How to Get Started ##
-  *Enter Lunch Choices
-  *Click Lunch Time button
-  *???
-  *Eat Lunch!
+  1. Enter Lunch Choices
+  1. Click Lunch Time button
+  1. ???
+  1. Eat Lunch!
 
 ## Customer Quote ##
   'I have more lunch time now thanks to this app.'

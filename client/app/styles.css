@@ -1,0 +1,20 @@
+body {
+	margin: 0;
+}
+
+.main {
+	display: flex;
+	flex-flow: row wrap;
+	max-width: 1200px;
+	width: 100%;
+	margin: 30px auto 30px;
+}
+
+.c1 {
+	flex-grow: 1;
+}
+
+.c2 {
+	flex-grow: 2;
+	margin-left: 30px;
+}

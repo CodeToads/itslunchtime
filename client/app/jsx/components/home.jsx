@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { test } from '../actions/actions';
 import mui from 'material-ui';
 import AppBar from 'material-ui/AppBar';
-import Card from 'material-ui/Card';
+import {Card, CardHeader} from 'material-ui/Card';
 import List from 'material-ui/List';
+const RandomAdds = require('./randomAdds');
 
 class App extends Component {
   render() {
@@ -12,11 +13,7 @@ class App extends Component {
       <div>
         <AppBar title="It's Lunch Time" />
         <div className="main">
-          <Card className="c1">
-            <List>
-              Welcome to It's Lunch Time.
-            </List>
-          </Card>
+          <RandomAdds />
           <Card className="c2">
             <List>
               test

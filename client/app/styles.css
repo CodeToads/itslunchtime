@@ -3,14 +3,6 @@ body {
   padding: 0;
 }
 
-.main {
-/*	display: flex;
-	flex-flow: row wrap;
-  flex-wrap: wrap;
-	max-width: 1200px;
-	width: 100%;
-	margin: 30px auto 30px;*/
-}
 
 .c1 {
   margin: 30px auto;
@@ -32,10 +24,6 @@ body {
   margin: 12px;
 }
 
-/*.cardText {
-  margin-bottom: -50px;
-}*/
-
 .left {
   width: 50%;
   display: inline-block;
@@ -55,4 +43,12 @@ body {
 
 .login {
   margin: 12px;
+}
+
+.list {
+  width: 80%;
+}
+
+.divider {
+  margin: -1px 0px 0px 0px;
 }

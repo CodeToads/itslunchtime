@@ -11,6 +11,10 @@ import {Card, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 
+const style = {
+  width: '75%',
+};
+
 const iconButtonElement = (
   <IconButton
     tooltip="more"
@@ -42,7 +46,9 @@ class SavedLists extends React.Component {
           />
           <CardText className="cardText">
             <TextField
-              hintText="Enter the Name"
+              floatingLabelText="Enter the Name"
+              className="listText"
+              style={style}
             />
             <RaisedButton
               className="submit"
@@ -55,12 +61,12 @@ class SavedLists extends React.Component {
                 rightIconButton={rightIconMenu}
                 primaryText="Junk Food"
               />
-              <Divider inset={true} />
+              <Divider />
               <ListItem
                 rightIconButton={rightIconMenu}
                 primaryText="Healthy Food"
               />
-              <Divider inset={true} />
+              <Divider />
               <ListItem
                 rightIconButton={rightIconMenu}
                 primaryText="Baller Food"

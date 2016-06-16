@@ -12,7 +12,7 @@ body {
 .c2 {
   margin: 30px auto 30px 0;
   width: 90%;
-  height: 760px;
+  height: 100%;
 }
 
 .c3 {
@@ -34,11 +34,6 @@ body {
   width: 50%;
   display: inline-block;
   float: left;
-}
-
-.card1, .card2 {
-  width: 100%;
-
 }
 
 .login {

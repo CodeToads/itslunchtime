@@ -13,6 +13,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const RandomAdds = require('./randomAdds');
 const SavedLists = require('./savedLists');
+const LunchRoulette = require('./LunchRoulette');
 
 class App extends Component {
   render() {
@@ -28,11 +29,7 @@ class App extends Component {
           <SavedLists />
         </div>
         <div className="right">
-          <Card className="c2">
-            <List>
-              test
-            </List>
-          </Card>
+          <LunchRoulette />
         </div>
         <p>{this.props.phrase}</p>
         <button onClick={this.props.test}>press me</button>

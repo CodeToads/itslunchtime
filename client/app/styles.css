@@ -1,5 +1,6 @@
 body {
 	margin: 0;
+  padding: 0;
 }
 
 .main {
@@ -39,3 +40,24 @@ body {
 /*.cardText {
   margin-bottom: -50px;
 }*/
+
+.left {
+  width: 20%;
+  display: inline-block;
+  float: left;
+}
+
+.right {
+  width: 80%;
+  display: inline-block;
+  float: left;
+}
+
+.card1, .card2 {
+  width: 100%;
+
+}
+
+.login {
+  margin: 12px;
+}

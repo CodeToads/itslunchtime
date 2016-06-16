@@ -3,6 +3,11 @@ import {Card, CardHeader, CardText} from 'material-ui/Card';
 import Slider from 'material-ui/Slider';
 import RaisedButton from 'material-ui/RaisedButton';
 
+const style = {
+  width: '95%',
+  marginLeft: '10px',
+};
+
 class RandomAdds extends React.Component {
   constructor() {
     super()
@@ -38,6 +43,7 @@ class RandomAdds extends React.Component {
               value={this.state.spots}
               step={1}
               onChange={this._handleSpots.bind(this)}
+              style={style}
             />
           </CardText>
           <CardText className="cardText">Within a {this.state.miles} mile radius
@@ -47,6 +53,7 @@ class RandomAdds extends React.Component {
               value={this.state.miles}
               step={3}
               onChange={this._handleMiles.bind(this)}
+              style={style}
             />
             <RaisedButton
               className="submit"

@@ -5,6 +5,7 @@ body {
 .main {
 	display: flex;
 	flex-flow: row wrap;
+  flex-wrap: wrap;
 	max-width: 1200px;
 	width: 100%;
 	margin: 30px auto 30px;
@@ -12,17 +13,29 @@ body {
 
 .c1 {
 	flex-grow: 1;
+  margin-bottom: 30px;
+  width: 400px;
 }
 
 .c2 {
 	flex-grow: 2;
 	margin-left: 30px;
+  margin-bottom: 30px;
+  min-width: 600px;
+  min-height: 800px;
+}
+
+.c3 {
+  flex-grow: 1;
+  align-self: flex-start;
+  margin-bottom: 30px;
+  max-width: 450px;
 }
 
 .submit {
   margin: 12px;
 }
 
-.cardText {
+/*.cardText {
   margin-bottom: -50px;
-}
+}*/

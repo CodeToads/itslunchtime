@@ -6,10 +6,12 @@ import { Router, browserHistory } from 'react-router';
 import reducers from './reducers/rootReducer';
 import routes from './routes';
 import promise from 'redux-promise';
-// import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import {red400, red300, red100, cyanA200} from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+injectTapEventPlugin();
 
 const styles = {
   container: {

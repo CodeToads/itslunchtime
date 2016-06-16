@@ -2,8 +2,6 @@ import React from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import Slider from 'material-ui/Slider';
 import RaisedButton from 'material-ui/RaisedButton';
-import FontIcon from 'material-ui/FontIcon';
-
 
 class RandomAdds extends React.Component {
   constructor() {
@@ -32,7 +30,6 @@ class RandomAdds extends React.Component {
         <Card>
           <CardHeader
             title="Random Additions"
-            subtitle="Add random additions to your list!"
           />
           <CardText className="cardText">Randomly add {this.state.spots} spot(s) to my list
             <Slider 
@@ -51,12 +48,12 @@ class RandomAdds extends React.Component {
               step={3}
               onChange={this._handleMiles.bind(this)}
             />
+            <RaisedButton
+              className="submit"
+              secondary={true}
+              label="Add Spots"
+            />
           </CardText>
-          <RaisedButton
-            className="submit"
-            secondary={true}
-            label="Add Spots"
-          />
         </Card>
       </div>
     )

@@ -6,6 +6,7 @@ import AppBar from 'material-ui/AppBar';
 import {Card, CardHeader} from 'material-ui/Card';
 import List from 'material-ui/List';
 const RandomAdds = require('./randomAdds');
+const SavedLists = require('./savedLists');
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
               test
             </List>
           </Card>
+          <SavedLists />
         </div>
         <p>{this.props.phrase}</p>
         <button onClick={this.props.test}>press me</button>

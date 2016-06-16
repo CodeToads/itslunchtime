@@ -18,3 +18,11 @@ body {
 	flex-grow: 2;
 	margin-left: 30px;
 }
+
+.submit {
+  margin: 12px;
+}
+
+.cardText {
+  margin-bottom: -50px;
+}

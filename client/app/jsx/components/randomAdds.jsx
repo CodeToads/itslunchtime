@@ -1,6 +1,9 @@
 import React from 'react';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import Slider from 'material-ui/Slider';
+import RaisedButton from 'material-ui/RaisedButton';
+import FontIcon from 'material-ui/FontIcon';
+
 
 class RandomAdds extends React.Component {
   constructor() {
@@ -31,7 +34,7 @@ class RandomAdds extends React.Component {
             title="Random Additions"
             subtitle="Add random additions to your list!"
           />
-          <CardText>Randomly add {this.state.spots} spot(s) to my list
+          <CardText className="cardText">Randomly add {this.state.spots} spot(s) to my list
             <Slider 
               min={0}
               max={15}
@@ -40,7 +43,7 @@ class RandomAdds extends React.Component {
               onChange={this._handleSpots.bind(this)}
             />
           </CardText>
-          <CardText>Within a {this.state.miles} mile radius
+          <CardText className="cardText">Within a {this.state.miles} mile radius
             <Slider 
               min={0}
               max={9}
@@ -49,6 +52,11 @@ class RandomAdds extends React.Component {
               onChange={this._handleMiles.bind(this)}
             />
           </CardText>
+          <RaisedButton
+            className="submit"
+            secondary={true}
+            label="Add Spots"
+          />
         </Card>
       </div>
     )

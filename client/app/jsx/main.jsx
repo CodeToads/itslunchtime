@@ -13,6 +13,15 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 injectTapEventPlugin();
 
+var config = {
+  apiKey: "AIzaSyBKfA-7_0BsRtvP1phbKE_Q4SXp_ZU_JTU",
+  authDomain: "project-1295389187211210387.firebaseapp.com",
+  databaseURL: "https://project-1295389187211210387.firebaseio.com",
+  storageBucket: "project-1295389187211210387.appspot.com",
+};
+
+firebase.initializeApp(config);
+
 const styles = {
   container: {
     textAlign: 'center',

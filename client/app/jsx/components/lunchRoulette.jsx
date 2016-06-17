@@ -11,6 +11,10 @@ import {Card, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import Firebase from 'firebase';
+import _ from 'lodash';
+import ReactFire from 'reactfire';
+import reactMixin from 'react-mixin';
 
 const style = {
   card: {
@@ -62,10 +66,66 @@ const pastMenu = (
 class LunchRoulette extends React.Component {
   constructor() {
     super()
-    this.state = {};
+    this.state = {
+      lunches: [],
+      input: ''
+    };
+  }
+
+
+  componentDidMount() {
+    //listen for lunch data changes
+    this.fireDB = firebase.database();
+    this.fireDBLunches = firebase.database().ref("lunches");
+    this.bindAsArray(this.fireDBLunches, "lunches");
+
+    // this.fireDBLunches.on('child_added', (data) => {
+    //   console.log(data.key);
+    //   console.log(data.val());
+    //   //add a notification maybe
+    //   // this.setState({
+    //   //   lunches: data.val()
+    //   // })
+    // });
+  }
+
+  componentWillUnmount() {
+    this.unbind('lunches');
+  }
+
+  _addLunch(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      this.fireDBLunches.push({
+        name: event.target.value
+      });
+      //clean input
+      this.setState({
+        input: ''
+      });
+      console.log(`Should have added ${event.target.value}`);
+    }
+  }
+
+  _handleInputChange(event) {
+    this.setState({
+      input: event.target.value
+    })
   }
 
   render() {
+    var lunchNodes = this.state.lunches.map((lunches, i) => {
+      return (
+        <div key={i}>
+        <ListItem
+          rightIconButton={rightIconMenu}
+          primaryText={lunches.name}
+        />
+        <Divider />
+        </div>
+      );
+    });
+
     return (
       <div>
         <Card className="c2">
@@ -79,6 +139,9 @@ class LunchRoulette extends React.Component {
                   floatingLabelText="Add Choices"
                   className="listText"
                   style={style.card}
+                  onKeyDown={this._addLunch.bind(this)}
+                  value={this.state.input}
+                  onChange={this._handleInputChange.bind(this)}
                 />
                 <RaisedButton
                   className="submit"
@@ -87,35 +150,7 @@ class LunchRoulette extends React.Component {
                 />
                 <List>
                   <Subheader>Today</Subheader>
-                  <ListItem
-                    rightIconButton={rightIconMenu}
-                    primaryText="In-N-Out"
-                  />
-                  <Divider />
-                  <ListItem
-                    rightIconButton={rightIconMenu}
-                    primaryText="Wendys"
-                  />
-                  <Divider />
-                  <ListItem
-                    rightIconButton={rightIconMenu}
-                    primaryText="California Fish Grill"
-                  />
-                  <Divider />
-                  <ListItem
-                    rightIconButton={rightIconMenu}
-                    primaryText="Ramen"
-                  />
-                  <Divider />
-                  <ListItem
-                    rightIconButton={rightIconMenu}
-                    primaryText="Sushi"
-                  />
-                  <Divider />
-                  <ListItem
-                    rightIconButton={rightIconMenu}
-                    primaryText="El Pollo Loco"
-                  />
+                  {lunchNodes}
                   <RaisedButton
                     secondary={true}
                     label="It's Lunch Time!"
@@ -156,5 +191,7 @@ class LunchRoulette extends React.Component {
   };
 
 }
+
+reactMixin(LunchRoulette.prototype, ReactFire)
 
 module.exports = LunchRoulette;

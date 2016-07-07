@@ -40,29 +40,6 @@ const style = {
   },
 };
 
-const iconButtonElement = (
-  <IconButton
-    tooltip="more"
-    tooltipPosition="bottom-left"
-  >
-    <MoreVertIcon color={grey400} />
-  </IconButton>
-);
-
-const rightIconMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem primaryText="Send to Eaten" />
-    <MenuItem primaryText="Delete" />
-  </IconMenu>
-);
-
-const pastMenu = (
-  <IconMenu iconButtonElement={iconButtonElement}>
-    <MenuItem primaryText="Send back to Roulette" />
-    <MenuItem primaryText="Delete" />
-  </IconMenu>
-);
-
 class LunchRoulette extends React.Component {
   constructor() {
     super()
@@ -71,7 +48,6 @@ class LunchRoulette extends React.Component {
       input: ''
     };
   }
-
 
   componentDidMount() {
     //listen for lunch data changes
@@ -123,7 +99,10 @@ class LunchRoulette extends React.Component {
   }
 
   _removeLunch(event) {
-    
+    if (event) {
+      console.log('remove test');
+      console.log(event.name);
+    }
   }
 
   _handleInputChange(event) {
@@ -133,11 +112,48 @@ class LunchRoulette extends React.Component {
   }
 
   render() {
+    //button and menu components
+    const iconButtonElement = (
+      <IconButton
+        tooltip="more"
+        tooltipPosition="bottom-left"
+      >
+        <MoreVertIcon color={grey400} />
+      </IconButton>
+    );
+
+    const pastMenu = (
+      <IconMenu iconButtonElement={iconButtonElement}>
+        <MenuItem primaryText="Send back to Roulette" />
+        <MenuItem primaryText="Delete" />
+      </IconMenu>
+    );
+
+    // const rightIconMenu = (
+    //   <IconMenu iconButtonElement={iconButtonElement}>
+    //     <MenuItem primaryText="Send to Eaten" />
+    //     <MenuItem primaryText="Delete" 
+    //       onTouchTap={this._removeLunch.bind(this)}
+    //     />
+    //   </IconMenu>
+    // );
+
+    //iterate through lunch nodes and map item with divider
     var lunchNodes = this.state.lunches.map((lunches, i) => {
       return (
         <div key={i}>
         <ListItem
-          rightIconButton={rightIconMenu}
+          rightIconButton={(
+            <IconMenu iconButtonElement={iconButtonElement}>
+            <MenuItem primaryText="Send to Eaten" />
+            <MenuItem primaryText="Delete" 
+              onTouchTap={
+                //bind this and lunches to function
+                this._removeLunch.bind(this, lunches)
+              }
+              />
+            </IconMenu>
+          )}
           primaryText={lunches.name}
         />
         <Divider />
@@ -169,7 +185,7 @@ class LunchRoulette extends React.Component {
                   onMouseDown={this._submitLunch.bind(this)}
                 />
                 <List>
-                  <Subheader>Today</Subheader>
+                  <Subheader>Lunch List</Subheader>
                   {lunchNodes}
                   <RaisedButton
                     secondary={true}

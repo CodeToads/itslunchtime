@@ -93,6 +93,7 @@ class LunchRoulette extends React.Component {
     this.unbind('lunches');
   }
 
+  //event when enter is pressed on input
   _addLunch(event) {
     if (event.keyCode === 13) {
       event.preventDefault();
@@ -105,6 +106,24 @@ class LunchRoulette extends React.Component {
       });
       console.log(`Should have added ${event.target.value}`);
     }
+  }
+
+  //button to add to list
+  _submitLunch(event) {
+    //adds to database if input is not blank
+    if (this.state.input !== '') {
+      this.fireDBLunches.push({
+        name: this.state.input
+      });
+      //clean input
+      this.setState({
+        input: ''
+      });
+    }
+  }
+
+  _removeLunch(event) {
+    
   }
 
   _handleInputChange(event) {
@@ -147,6 +166,7 @@ class LunchRoulette extends React.Component {
                   className="submit"
                   secondary={true}
                   label="Add to List"
+                  onMouseDown={this._submitLunch.bind(this)}
                 />
                 <List>
                   <Subheader>Today</Subheader>

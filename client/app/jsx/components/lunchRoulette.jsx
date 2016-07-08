@@ -15,6 +15,7 @@ import Firebase from 'firebase';
 import _ from 'lodash';
 import ReactFire from 'reactfire';
 import reactMixin from 'react-mixin';
+import SweetAlert from 'sweetalert-react';
 
 var moment = require('moment');
 
@@ -48,7 +49,9 @@ class LunchRoulette extends React.Component {
     this.state = {
       lunches: [],
       eaten: [],
-      input: ''
+      input: '',
+      show: false,
+      randLunch: ''
     };
   }
 
@@ -126,6 +129,30 @@ class LunchRoulette extends React.Component {
     this.fireDB.ref("lunches/" + event['.key']).remove();
   }
 
+  _randomLunch(event) {
+    if (this.state.lunches.length) {
+      var randIndex = Math.floor(Math.random() * this.state.lunches.length);
+      var randLunch = this.state.lunches[randIndex];
+      console.log('randomLunch');
+      console.log(randIndex);
+      console.log(this.state.lunches[randIndex]);
+
+      this.fireDBEaten.push({
+        name: randLunch.name,
+        date: moment().format('dddd (MM/DD)')
+      })
+
+      this.fireDB.ref("lunches/" + randLunch['.key']).remove();
+
+      this.setState({
+        show: true,
+        randLunch: randLunch.name
+      });
+    } else {
+      console.log('no lunch choices!');
+    }
+  }
+
   //handles choices input change
   _handleInputChange(event) {
     this.setState({
@@ -199,6 +226,13 @@ class LunchRoulette extends React.Component {
 
     return (
       <div>
+        <SweetAlert
+          show={this.state.show}
+          title="Lunch Roulette"
+          text={`It's Lunch Time at ${this.state.randLunch}!`}
+          className='swalRoulette'
+          onConfirm={() => this.setState({show: false})}
+        />
         <Card className="c2">
           <Tabs>
             <Tab label="Lunch Roulette">
@@ -227,6 +261,7 @@ class LunchRoulette extends React.Component {
                     secondary={true}
                     label="It's Lunch Time!"
                     style={style.lunchButton}
+                    onMouseDown={this._randomLunch.bind(this)}
                   />
                 </List>
               </CardText>

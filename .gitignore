@@ -3,3 +3,4 @@ node_modules/
 client/app/bundle.js
 
 firebase-debug.log
+lunches.json

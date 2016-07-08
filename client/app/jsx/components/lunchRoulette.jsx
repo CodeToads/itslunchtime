@@ -16,6 +16,8 @@ import _ from 'lodash';
 import ReactFire from 'reactfire';
 import reactMixin from 'react-mixin';
 
+var moment = require('moment');
+
 const style = {
   card: {
     width: '75%',
@@ -45,6 +47,7 @@ class LunchRoulette extends React.Component {
     super()
     this.state = {
       lunches: [],
+      eaten: [],
       input: ''
     };
   }
@@ -52,21 +55,17 @@ class LunchRoulette extends React.Component {
   componentDidMount() {
     //listen for lunch data changes
     this.fireDB = firebase.database();
-    this.fireDBLunches = firebase.database().ref("lunches");
+
+    this.fireDBLunches = this.fireDB.ref("lunches");
     this.bindAsArray(this.fireDBLunches, "lunches");
 
-    // this.fireDBLunches.on('child_added', (data) => {
-    //   console.log(data.key);
-    //   console.log(data.val());
-    //   //add a notification maybe
-    //   // this.setState({
-    //   //   lunches: data.val()
-    //   // })
-    // });
+    this.fireDBEaten = this.fireDB.ref("eaten");
+    this.bindAsArray(this.fireDBEaten, "eaten");  
   }
 
   componentWillUnmount() {
     this.unbind('lunches');
+    this.unbind('eaten');
   }
 
   //event when enter is pressed on input
@@ -103,6 +102,30 @@ class LunchRoulette extends React.Component {
     this.fireDB.ref("lunches/" + event['.key']).remove();
   }
 
+  _removeEaten(event) {
+    //query using event['.key'] to find correct entry and remove it
+    this.fireDB.ref("eaten/" + event['.key']).remove();
+  }
+
+  _sendToLunch(event) {
+    //add to eaten ref
+    this.fireDBLunches.push({
+      name: event.name,
+    })
+    //query using event['.key'] to find correct entry and remove it
+    this.fireDB.ref("eaten/" + event['.key']).remove();
+  }
+
+  _sendToEaten(event) {
+    //add to eaten ref
+    this.fireDBEaten.push({
+      name: event.name,
+      date: moment().format('dddd (MM/DD)')
+    })
+    //query using event['.key'] to find correct entry and remove it
+    this.fireDB.ref("lunches/" + event['.key']).remove();
+  }
+
   //handles choices input change
   _handleInputChange(event) {
     this.setState({
@@ -121,22 +144,6 @@ class LunchRoulette extends React.Component {
       </IconButton>
     );
 
-    const pastMenu = (
-      <IconMenu iconButtonElement={iconButtonElement}>
-        <MenuItem primaryText="Send back to Roulette" />
-        <MenuItem primaryText="Delete" />
-      </IconMenu>
-    );
-
-    // const rightIconMenu = (
-    //   <IconMenu iconButtonElement={iconButtonElement}>
-    //     <MenuItem primaryText="Send to Eaten" />
-    //     <MenuItem primaryText="Delete" 
-    //       onTouchTap={this._removeLunch.bind(this)}
-    //     />
-    //   </IconMenu>
-    // );
-
     //iterate through lunch nodes and map item with divider
     var lunchNodes = this.state.lunches.map((lunches, i) => {
       return (
@@ -144,7 +151,11 @@ class LunchRoulette extends React.Component {
         <ListItem
           rightIconButton={(
             <IconMenu iconButtonElement={iconButtonElement}>
-            <MenuItem primaryText="Send to Eaten" />
+            <MenuItem primaryText="Send to Eaten" 
+              onTouchTap={
+                this._sendToEaten.bind(this, lunches)
+              }
+            />
             <MenuItem primaryText="Delete" 
               onTouchTap={
                 //bind this and lunches to function
@@ -156,6 +167,32 @@ class LunchRoulette extends React.Component {
           primaryText={lunches.name}
         />
         <Divider />
+        </div>
+      );
+    });
+
+    //iterate through eaten and map item with divider
+    var eatenNodes = this.state.eaten.map((lunches, i) => {
+      return (
+        <div key={i}>
+          <ListItem
+            rightIconButton={(
+              <IconMenu iconButtonElement={iconButtonElement}>
+                <MenuItem primaryText="Send back to Roulette"
+                  onTouchTap={
+                    this._sendToLunch.bind(this, lunches)
+                  }
+                />
+                <MenuItem primaryText="Delete" 
+                  onTouchTap={
+                    this._removeEaten.bind(this, lunches)
+                  }
+                />
+              </IconMenu>
+            )}
+            primaryText={`${lunches.name} was eaten on ${lunches.date}`}
+          />
+          <Divider />
         </div>
       );
     });
@@ -197,20 +234,7 @@ class LunchRoulette extends React.Component {
           <Tab label="Past Lunches">
               <CardText>
                 <List>
-                  <ListItem
-                    rightIconButton={pastMenu}
-                    primaryText="Ramen eaten on 6/16 Thursday"
-                  />
-                  <Divider />
-                  <ListItem
-                    rightIconButton={pastMenu}
-                    primaryText="Sushi eaten on 6/15 Wednesday"
-                  />
-                  <Divider />
-                  <ListItem
-                    rightIconButton={pastMenu}
-                    primaryText="El Pollo Loco eaten on 6/14 Tuesday"
-                  />
+                  {eatenNodes}
                 </List>
                 <RaisedButton
                   secondary={true}

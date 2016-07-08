@@ -1,5 +1,4 @@
 {
-  "firebase": "itslunchtime",
   "database": {
     "rules": "database.rules.json"
   },

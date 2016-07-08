@@ -14,10 +14,10 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 injectTapEventPlugin();
 
 var config = {
-  apiKey: "AIzaSyBKfA-7_0BsRtvP1phbKE_Q4SXp_ZU_JTU",
-  authDomain: "project-1295389187211210387.firebaseapp.com",
-  databaseURL: "https://project-1295389187211210387.firebaseio.com",
-  storageBucket: "project-1295389187211210387.appspot.com",
+    apiKey: "AIzaSyD65mHE-QlqMtj8L85SrbnA0rE09MbZJyY",
+    authDomain: "lunchtime-2ff25.firebaseapp.com",
+    databaseURL: "https://lunchtime-2ff25.firebaseio.com",
+    storageBucket: "lunchtime-2ff25.appspot.com",
 };
 
 firebase.initializeApp(config);

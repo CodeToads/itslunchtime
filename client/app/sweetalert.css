@@ -40,12 +40,11 @@ body.stop-scrolling {
       right: 15px; } }
   .sweet-alert h2 {
     color: #fff;
-    font-size: 45px;
+    font-size: 60px;
     text-align: center;
     font-weight: 600;
     text-transform: none;
     position: relative;
-    margin: 25px 0;
     padding: 0;
     line-height: 40px;
     display: block; }

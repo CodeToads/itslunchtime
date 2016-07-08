@@ -228,9 +228,11 @@ class LunchRoulette extends React.Component {
       <div>
         <SweetAlert
           show={this.state.show}
-          title="Lunch Roulette"
-          text={`It's Lunch Time at ${this.state.randLunch}!`}
-          className='swalRoulette'
+          title={`<p>Lunch Roulette has picked...</p><br/><b>${this.state.randLunch}</b>`}
+          text={`Have a good lunch!`}
+          imageUrl="app/img/sandwich.gif"
+          imageSize="350x350"
+          html={true}
           onConfirm={() => this.setState({show: false})}
         />
         <Card className="c2">

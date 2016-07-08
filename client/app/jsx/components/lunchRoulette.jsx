@@ -99,12 +99,11 @@ class LunchRoulette extends React.Component {
   }
 
   _removeLunch(event) {
-    if (event) {
-      console.log('remove test');
-      console.log(event.name);
-    }
+    //query using event['.key'] to find correct entry and remove it
+    this.fireDB.ref("lunches/" + event['.key']).remove();
   }
 
+  //handles choices input change
   _handleInputChange(event) {
     this.setState({
       input: event.target.value

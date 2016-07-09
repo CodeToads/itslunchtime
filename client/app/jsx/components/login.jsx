@@ -34,8 +34,92 @@ class Login extends React.Component {
   constructor() {
     super()
     this.state = {
-      open: false
+      open: false,
+      signedIn: ''
     };
+  }
+
+  componentDidMount() {
+    //refactor providers later
+    this.provider = new firebase.auth.GoogleAuthProvider();
+    this.FBprovider = new firebase.auth.FacebookAuthProvider();
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        // User is signed in.
+        console.log('user is signed in');
+        this.setState = {
+          signedIn: true,
+        }
+      } else {
+        // No user is signed in.
+        console.log('user is not signed in');
+        this.setState = {
+          signedIn: false,
+        }
+      }
+    });
+  }
+  _loginGoogle() {
+    this._handleToggle();
+    console.log('google');
+    firebase.auth().signInWithPopup(this.provider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+      console.log('this is the user');
+      console.log(user);
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+      console.log(errorCode);
+    });
+  }
+
+  _loginFB() {
+    this._handleToggle();
+    console.log('FB');
+    firebase.auth().signInWithPopup(this.FBprovider).then(function(result) {
+      // This gives you a Google Access Token. You can use it to access the Google API.
+      var token = result.credential.accessToken;
+      // The signed-in user info.
+      var user = result.user;
+      // ...
+      console.log('this is the user');
+      console.log(user);
+    }).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // The email of the user's account used.
+      var email = error.email;
+      // The firebase.auth.AuthCredential type that was used.
+      var credential = error.credential;
+      // ...
+      console.log(errorCode);
+    });
+  }
+
+  _loginTwitter() {
+    console.log('twitter');
+  }
+
+  _signout() {
+    this._handleToggle();
+    firebase.auth().signOut().then(function() {
+      // Sign-out successful.
+      console.log('signout successful');
+    }, function(error) {
+      // An error happened.
+      console.log('signout failed');
+    });
   }
 
   _handleToggle() {
@@ -64,9 +148,15 @@ class Login extends React.Component {
             }
             onTitleTouchTap={this._handleToggle.bind(this)}
           />
-          <MenuItem leftIcon={<Google />}>Google</MenuItem>
-          <MenuItem leftIcon={<Facebook />}>Facebook</MenuItem>
-          <MenuItem leftIcon={<Twitter />}>Twitter</MenuItem>
+          <MenuItem leftIcon={<Google />} onTouchTap={this._loginGoogle.bind(this)}>Google</MenuItem>
+          <MenuItem leftIcon={<Facebook />} onTouchTap={this._loginFB.bind(this)}>Facebook</MenuItem>
+          <MenuItem leftIcon={<Twitter />} onTouchTap={this._loginTwitter.bind(this)}>Twitter</MenuItem>
+          <RaisedButton 
+            className="submit" 
+            label="Sign Out" 
+            secondary={true}
+            onTouchTap={this._signout.bind(this)}
+          />
         </Drawer>
       </div>
     );

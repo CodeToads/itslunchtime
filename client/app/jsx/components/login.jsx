@@ -4,6 +4,8 @@ import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import SvgIcon from 'material-ui/SvgIcon';
+import IconButton from 'material-ui/IconButton';
+import NavigationClose from 'material-ui/svg-icons/navigation/close';
 
 const iconStyles = {
   width: '24px',
@@ -55,16 +57,16 @@ class Login extends React.Component {
           open={this.state.open}
           openSecondary={true}
         >
-        <AppBar title="Sign In" showMenuIconButton={false} />
-        <MenuItem leftIcon={<Google />}>Google</MenuItem>
-        <MenuItem leftIcon={<Facebook />}>Facebook</MenuItem>
-        <MenuItem leftIcon={<Twitter />}>Twitter</MenuItem>
-        <RaisedButton
-          className="submit"
-          label="Cancel" 
-          secondary={true}
-          onTouchTap={this._handleToggle.bind(this)}
-        />
+          <AppBar 
+            title="Sign In" 
+            iconElementLeft={
+              <IconButton onClick={this._handleToggle.bind(this)}><NavigationClose /></IconButton>
+            }
+            onTitleTouchTap={this._handleToggle.bind(this)}
+          />
+          <MenuItem leftIcon={<Google />}>Google</MenuItem>
+          <MenuItem leftIcon={<Facebook />}>Facebook</MenuItem>
+          <MenuItem leftIcon={<Twitter />}>Twitter</MenuItem>
         </Drawer>
       </div>
     );
